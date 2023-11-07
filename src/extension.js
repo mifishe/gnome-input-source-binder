@@ -54,5 +54,5 @@ export default class InputSourceBinderExtension extends Extension {
         for (let i = 0; i < this.input_count; i++) {
             Main.wm.removeKeyBinding(SHORTCUT_PREFIX + (i + 1));
         }
-    }z
+    }
 }
