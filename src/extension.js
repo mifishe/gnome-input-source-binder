@@ -20,10 +20,11 @@
 
 const SHORTCUT_PREFIX = "switch-to-input-source-"
 
-const Main = imports.ui.main;
-const ExtensionUtils = imports.misc.extensionUtils;
-const { Meta, Shell } = imports.gi;
-const InputSourceManager = imports.ui.status.keyboard.getInputSourceManager();
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+import Meta from 'gi://Meta'
+import Shell from 'gi://Shell'
+import { InputSourceManager }  from 'resource:///org/gnome/shell/ui/status/keyboard.js';
+import { Extension, gettext as _ } from 'resource:///org/gnome/shell/extensions/extension.js';
 
 function setInputSource(index) {
     return () => {
@@ -32,13 +33,13 @@ function setInputSource(index) {
 }
 
 
-class Extension {
+export default class InputSourceBinderExtension extends Extension {
 
     enable() {
         const source_number = Object.keys(InputSourceManager.inputSources).length;
         this.input_source_count = Math.min(5, source_number)
         
-        const settings = ExtensionUtils.getSettings()
+        const settings = this.getSettings()
 
         for (let i = 0; i < this.input_source_count; i++) {
             Main.wm.addKeybinding(
@@ -53,9 +54,5 @@ class Extension {
         for (let i = 0; i < this.input_count; i++) {
             Main.wm.removeKeyBinding(SHORTCUT_PREFIX + (i + 1));
         }
-    }
-}
-
-function init() {
-    return new Extension();
+    }z
 }
