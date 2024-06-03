@@ -26,19 +26,17 @@ import Shell from 'gi://Shell';
 import * as Keyboard from 'resource:///org/gnome/shell/ui/status/keyboard.js';
 import { Extension, gettext as _ } from 'resource:///org/gnome/shell/extensions/extension.js';
 
-const InputSourceManager = Keyboard.getInputSourceManager();
-
-function setInputSource(index) {
-    return () => {
-        InputSourceManager.inputSources[index].activate()
-    };
-}
-
-
 export default class InputSourceBinderExtension extends Extension {
 
     enable() {
-        const source_number = Object.keys(InputSourceManager.inputSources).length;
+        const inputSourceManager = Keyboard.getInputSourceManager();
+        const setInputSource = (index) => {
+            return () => {
+                inputSourceManager.inputSources[index].activate()
+            };
+        };
+
+        const source_number = Object.keys(inputSourceManager.inputSources).length;
         this.input_source_count = Math.min(5, source_number)
         
         const settings = this.getSettings();
