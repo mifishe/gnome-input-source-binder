@@ -5,6 +5,7 @@
     "settings-schema": "org.gnome.shell.extensions.input-source-binder",
     "url": "https://github.com/mifishe/gnome-input-source-binder",
     "shell-version": [
-        "45"
+        "45",
+        "46"
     ]              
 }
